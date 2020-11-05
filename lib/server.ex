@@ -27,11 +27,6 @@ defmodule TickTickServer do
     :gen_tcp.shutdown(socket, :write)
   end
 
-  defp read_line(socket) do
-    {:ok, data} = :gen_tcp.recv(socket, 0)
-    data
-  end
-
   defp write_line(socket, counter) do
     next = counter.()
     :gen_tcp.send(socket, "#{next}")

@@ -1,7 +1,7 @@
 defmodule TickTick do
   def start_link do
     monotonic_offset = getMonotonicOffset()
-    {:ok, pid} = Task.start_link(fn -> loop(getMonotonicUnixTime(monotonic_offset)) end)
+    {:ok, pid} = Task.start_link(fn -> loop(getNextTickValue(monotonic_offset)) end)
     {:ok, _} = Task.start_link(fn -> tick(pid, monotonic_offset) end)
     fn ->
       send(pid, {:next, self()})
@@ -33,6 +33,10 @@ defmodule TickTick do
     # Linux tops out at ~1 million packets per second, apparently (see https://blog.cloudflare.com/how-to-receive-a-million-packets/)
     # Also this gives us a 100 million unique ids for every second between the unix epoch and the year ~5000
     max_packets_per_second = 100_000_000
+
+    # TODO: We can support multiple servers by splitting the 100 million id space 2-10 ways
+    # e.g. giving one server 0-10 million, the next 10-20 million, etc.
+    # this would require guarding against overflows
 
     getMonotonicUnixTime(monotonic_offset) * max_packets_per_second
   end
