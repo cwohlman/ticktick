@@ -1,21 +1,9 @@
 # Ticktick
 
-**TODO: Add description**
+I'm working on some code involving event sourcing, and thought: wouldn't it be cool if I had a server that could serve monotonically increasing ids. This is that server.
 
-## Installation
+I'm new to elixir, and there are known bugs, so don't use this.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `ticktick` to your list of dependencies in `mix.exs`:
+Currently returns a new id for every tcp connection.
 
-```elixir
-def deps do
-  [
-    {:ticktick, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/ticktick](https://hexdocs.pm/ticktick).
-
+To run: `mix run` and get ids by connecting to port 4000
